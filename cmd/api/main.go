@@ -50,6 +50,7 @@ func main() {
 	r.POST("/orders", orderHandler.CreateOrder)
 	r.GET("/orders", orderHandler.GetOrders)
 	r.GET("/orders/:id", orderHandler.GetOrderByID)
+	r.PUT("/orders/:id", orderHandler.UpdateOrder)
 
 	// =========================
 	// RUN SERVER
