@@ -40,3 +40,28 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		"order":   order,
 	})
 }
+
+func (h *OrderHandler) GetOrders(c *gin.Context) {
+
+	orders, err := h.service.GetOrders()
+
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, orders)
+}
+
+func (h *OrderHandler) GetOrderByID(c *gin.Context) {
+	id := c.Param("id")
+
+	order, err := h.service.GetOrderByID(id)
+
+	if err != nil {
+		c.JSON(404, gin.H{"error": "Order Tidak Di temukan"})
+		return
+	}
+
+	c.JSON(200, order)
+}

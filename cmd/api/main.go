@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/agungnurhayanto/go-async-order-service/internal/config"
 	"github.com/agungnurhayanto/go-async-order-service/internal/handler"
 	"github.com/agungnurhayanto/go-async-order-service/internal/service"
 	"github.com/agungnurhayanto/go-async-order-service/internal/worker"
@@ -11,6 +12,9 @@ import (
 
 func main() {
 	// init gin
+
+	config.ConnectDB()
+
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
@@ -44,6 +48,8 @@ func main() {
 
 	// routes
 	r.POST("/orders", orderHandler.CreateOrder)
+	r.GET("/orders", orderHandler.GetOrders)
+	r.GET("/orders/:id", orderHandler.GetOrderByID)
 
 	// =========================
 	// RUN SERVER
